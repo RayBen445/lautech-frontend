@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>LAUTECH Economics Login & Register</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    body {
+      background: linear-gradient(135deg, #00264d, #006699);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: center;
+      max-width: 1000px;
+      width: 100%;
+      padding: 2rem;
+    }
+
+    .form-box {
+      background-color: #fff;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.2);
+      flex: 1 1 400px;
+      min-width: 320px;
+    }
+
+    .form-box h2 {
+      color: #003366;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    .form-box label {
+      font-weight: bold;
+      margin-bottom: 0.3rem;
+      display: block;
+      color: #003366;
+    }
+
+    .form-box input {
+      width: 100%;
+      padding: 0.6rem;
+      margin-bottom: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1rem;
+    }
+
+    .form-box button {
+      width: 100%;
+      padding: 0.7rem;
+      background-color: #004080;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .form-box button:hover {
+      background-color: #0066cc;
+    }
+
+    .error-msg {
+      color: red;
+      font-size: 0.9rem;
+      margin-top: -0.8rem;
+      margin-bottom: 1rem;
+    }
+
+    .disclaimer {
+      margin-top: 2rem;
+      text-align: center;
+      color: #ffffff;
+      font-size: 0.9rem;
+      max-width: 600px;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Login Box -->
+    <div class="form-box">
+      <h2>Student Login</h2>
+      <form id="loginForm" novalidate>
+        <label for="loginMatric">Matric Number</label>
+        <input type="text" id="loginMatric" name="loginMatric" required placeholder="e.g. 2024001234" autocomplete="off" />
+        <p id="loginError" class="error-msg"></p>
+        <button type="submit">Login</button>
+      </form>
+    </div>
+
+    <!-- Register Box -->
+    <div class="form-box">
+      <h2>Student Registration</h2>
+      <form id="registerForm" novalidate>
+        <label for="registerFullName">Full Name</label>
+        <input
+          type="text"
+          id="registerFullName"
+          required
+          placeholder="Surname Firstname Othername"
+          pattern="^[A-Za-z]+ [A-Za-z]+( [A-Za-z]+)?$"
+          autocomplete="off"
+        />
+
+        <label for="registerEmail">Email</label>
+        <input
+          type="email"
+          id="registerEmail"
+          required
+          placeholder="e.g. you@example.com"
+          autocomplete="off"
+        />
+
+        <label for="registerMatric">Matric Number</label>
+        <input
+          type="text"
+          id="registerMatric"
+          required
+          placeholder="e.g. 2024001234"
+          autocomplete="off"
+        />
+
+        <label for="registerImage">Profile Image (optional)</label>
+        <input type="file" id="registerImage" accept="image/*" />
+
+        <p id="registerError" class="error-msg"></p>
+        <button type="submit">Register</button>
+      </form>
+    </div>
+  </div>
+
+  <p class="disclaimer">
+    This login is for authenticated LAUTECH Economics Class29 students only. No sensitive data is collected.
+  </p>
+
+  <script>
+    const baseURL = "http://localhost:3000/api";
+
+    // Handle Registration
+    document.getElementById("registerForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const fullName = document.getElementById("registerFullName").value.trim();
+      const email = document.getElementById("registerEmail").value.trim();
+      const matricNumber = document.getElementById("registerMatric").value.trim();
+      const imageFile = document.getElementById("registerImage").files[0];
+      const errorBox = document.getElementById("registerError");
+
+      if (!fullName || !email || !matricNumber) {
+        errorBox.textContent = "All fields are required.";
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append("fullName", fullName);
+      formData.append("email", email);
+      formData.append("matricNumber", matricNumber);
+      if (imageFile) {
+        formData.append("image", imageFile);
+      }
+
+      try {
+        const res = await fetch(`${baseURL}/register`, {
+          method: "POST",
+          body: formData
+        });
+
+        const data = await res.json();
+        if (res.ok) {
+          alert("Registration successful! Please log in.");
+          errorBox.textContent = "";
+          document.getElementById("registerForm").reset();
+        } else {
+          errorBox.textContent = data.message || "Registration failed.";
+        }
+      } catch (err) {
+        errorBox.textContent = "An error occurred. Please try again.";
+      }
+    });
+
+    // Handle Login
+    document.getElementById("loginForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const matricNumber = document.getElementById("loginMatric").value.trim();
+      const errorBox = document.getElementById("loginError");
+
+      if (!matricNumber) {
+        errorBox.textContent = "Matric number is required.";
+        return;
+      }
+
+      try {
+        const res = await fetch(`${baseURL}/login`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ matricNumber })
+        });
+
+        const data = await res.json();
+        if (res.ok) {
+          errorBox.textContent = "";
+          localStorage.setItem("user", JSON.stringify(data.user));
+          window.location.href = "home.html"; // redirect
+        } else {
+          errorBox.textContent = data.message || "Login failed.";
+        }
+      } catch (err) {
+        errorBox.textContent = "An error occurred. Please try again.";
+      }
+    });
+  </script>
+</body>
+  </html>

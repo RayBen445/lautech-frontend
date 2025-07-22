@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Student Access - LAUTECH Economics</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    body.auth-body {
+      background: linear-gradient(135deg, #00264d, #006699);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 1rem;
+    }
+
+    .auth-wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      max-width: 900px;
+      width: 100%;
+      justify-content: center;
+    }
+
+    .auth-box {
+      background-color: #ffffff;
+      padding: 2rem 2.5rem;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+      width: 100%;
+      max-width: 400px;
+      box-sizing: border-box;
+    }
+
+    .auth-box h2 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      color: #003366;
+    }
+
+    .auth-box form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .auth-box label {
+      font-weight: bold;
+      margin-bottom: 0.4rem;
+      color: #003366;
+    }
+
+    .auth-box input {
+      padding: 0.6rem;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      margin-bottom: 1.2rem;
+    }
+
+    .auth-box button {
+      background-color: #004080;
+      color: #fff;
+      padding: 0.7rem;
+      font-size: 1rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .auth-box button:hover {
+      background-color: #0066cc;
+    }
+
+    .error-msg {
+      color: red;
+      font-size: 0.9rem;
+      margin-top: -0.8rem;
+      margin-bottom: 1rem;
+    }
+
+    .login-logo {
+      display: block;
+      margin: 0 auto 1rem auto;
+      max-width: 80px;
+    }
+  </style>
+  <script src="js/auth.js" defer></script>
+</head>
+<body class="auth-body">
+  <div class="auth-wrapper">
+
+    <!-- Login Box -->
+    <div class="auth-box">
+      <img src="https://upload.wikimedia.org/wikipedia/en/9/94/LAUTECH_logo.png" alt="Logo" class="login-logo" />
+      <h2>Student Login</h2>
+      <form id="loginForm">
+        <label for="fullName">Full Name</label>
+        <input type="text" id="fullName" placeholder="e.g. Smith John David" required />
+
+        <label for="matricNumber">Matric Number</label>
+        <input type="text" id="matricNumber" placeholder="e.g. 2024001234" required />
+
+        <button type="submit">Login</button>
+        <p id="loginError" class="error-msg"></p>
+      </form>
+    </div>
+
+    <!-- Register Box -->
+    <div class="auth-box">
+      <img src="https://upload.wikimedia.org/wikipedia/en/9/94/LAUTECH_logo.png" alt="Logo" class="login-logo" />
+      <h2>New Student Registration</h2>
+      <form id="registerForm">
+        <label for="regFullName">Full Name</label>
+        <input type="text" id="regFullName" placeholder="e.g. Smith John David" required
+          pattern="^[A-Za-z]+ [A-Za-z]+( [A-Za-z]+)?$"
+          title="Enter full name as: Surname Firstname Othername" />
+
+        <label for="regMatric">Matric Number</label>
+        <input type="text" id="regMatric" placeholder="e.g. 2024001234" required />
+
+        <label for="regEmail">Email Address</label>
+        <input type="email" id="regEmail" placeholder="e.g. student@example.com" required />
+
+        <button type="submit">Register</button>
+        <p id="registerError" class="error-msg"></p>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

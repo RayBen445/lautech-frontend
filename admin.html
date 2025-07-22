@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Panel | LAUTECH Economics</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <script defer src="js/admin.js"></script>
+  <script>
+    // ✅ Only allow certain matric numbers (e.g., President)
+    const allowedAdmins = ["2024003476"];
+    const userMatric = localStorage.getItem("matric");
+    if (!allowedAdmins.includes(userMatric)) {
+      alert("⛔ Access Denied: You are not authorized to view this page.");
+      window.location.href = "home.html";
+    }
+  </script>
+</head>
+<body>
+  <header>
+    <h1>⚙️ Admin Dashboard - LAUTECH Economics</h1>
+    <button onclick="logout()">🚪 Logout</button>
+  </header>
+
+  <main>
+    <section class="admin-form">
+      <h2>📋 Official Contacts Form</h2>
+      <form id="officialForm">
+        <label for="role">Role</label>
+        <select id="role" required>
+          <option value="">-- Select Role --</option>
+          <option value="President">President</option>
+          <option value="Rep">Rep</option>
+          <option value="Assistant Rep">Assistant Rep</option>
+          <option value="STEP">STEP</option>
+          <option value="Social Director">Social Director</option>
+          <option value="PRO">PRO</option>
+        </select>
+
+        <label for="fullName">Full Name</label>
+        <input type="text" id="fullName" placeholder="e.g. Oladoye Heritage Oluwalonimi" required />
+
+        <label for="whatsappLink">WhatsApp Link</label>
+        <input type="url" id="whatsappLink" placeholder="e.g. https://wa.me/234xxxxxxxxxx" required />
+
+        <button type="submit">✅ Save</button>
+      </form>
+
+      <div id="officialList">
+        <h3>📄 Saved Officials:</h3>
+        <ul id="officialOutput"></ul>
+      </div>
+    </section>
+  </main>
+</body>
+  </html>
+  

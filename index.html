@@ -1,0 +1,48 @@
+<!DOCTYPE html>  
+<html lang="en">  
+<head>  
+  <meta charset="UTF-8" />  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="google-site-verification" content="JNCH-aDaC4sXQxnj6sr8aS4ESzUat4AUjnwIkxQ0uzE" />  
+  <title>LAUTECH Department of Economics</title>  
+  <link rel="stylesheet" href="css/style.css" />  
+  <script src="js/auth-protect.js" defer></script> <!-- Redirects if not logged in -->  
+  <script src="js/auth.js" defer></script>         <!-- Handles login/session -->  
+  <script src="js/main.js" defer></script>         <!-- Handles UI -->  
+</head>  
+<body>  
+  <header>  
+    <img src="https://upload.wikimedia.org/wikipedia/en/9/94/LAUTECH_logo.png" alt="LAUTECH Logo" class="logo" />  
+    <h1>Department of Economics, LAUTECH</h1>  
+    <button class="menu-toggle" onclick="toggleSidebar()">☰</button>  
+  </header>  
+  
+  <aside id="sidebar">  
+    <ul>  
+      <li><a href="index.html">🏠 Home</a></li>  
+      <li><a href="staff.html">👨‍🏫 Staff</a></li>  
+      <li><a href="courses.html">📘 Courses</a></li>  
+      <li><a href="resources.html">🗂 Resources</a></li>  
+      <li><a href="gallery.html">🖼 Gallery</a></li>  
+      <li><a href="contact.html">📬 Contact</a></li>  
+      <li><a href="#" onclick="logout()">🚪 Logout</a></li>  
+    </ul>  
+  </aside>  
+  
+  <main>  
+    <section class="carousel">  
+      <img src="https://images.unsplash.com/photo-1596495577886-d920f1fb7238" class="slide active" alt="Campus View" />  
+      <img src="https://images.unsplash.com/photo-1584697964192-8a7fb1d4e6da" class="slide" alt="Lecture Hall" />  
+      <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1" class="slide" alt="Library" />  
+    </section>  
+  
+    <section class="quick-links">  
+      <a href="staff.html" class="quick-link">👨‍🏫 Staff</a>  
+      <a href="courses.html" class="quick-link">📘 Courses</a>  
+      <a href="resources.html" class="quick-link">🗂 Resources</a>  
+      <a href="gallery.html" class="quick-link">🖼 Gallery</a>  
+      <a href="contact.html" class="quick-link">📬 Contact</a>  
+    </section>  
+  </main>  
+</body>  
+  </html>
